@@ -2,17 +2,42 @@
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../config';
 ---
+<script>
+const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const storage = localStorage.getItem("theme");
+const theme = storage ? storage : system;
+const element = document.body;
+const themeButton = document.getElementById('theme')!;
 
+themeButton.addEventListener('click', themeToggle)
+
+if (theme === 'dark') {
+	element.classList.add("dark-theme");
+}
+
+function themeToggle() {
+  element.classList.toggle("dark-theme");
+
+  if (theme && theme === "dark") {
+    localStorage.setItem("theme", "light");
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
+}
+</script>
 <header>
 	<h2>
 		{SITE_TITLE}
 	</h2>
 	<nav>
 		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
 		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/weekly">Weekly</HeaderLink>
+		<HeaderLink href="/changelog">ChangeLog</HeaderLink>
+		<HeaderLink href="https://twitter.com/ParkerChang11" target="_blank">Twitter</HeaderLink>
+		<HeaderLink href="https://github.com/Parkerhiphop" target="_blank">GitHub</HeaderLink>
+		<button type="button" id="theme">Switch</button>
 	</nav>
 </header>
 <style>
