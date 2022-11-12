@@ -1,16 +1,5 @@
 # Astro Starter Kit: Blog
 
-```
-npm init astro -- --template blog
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-
-![blog](https://user-images.githubusercontent.com/4677417/186189140-4ef17aac-c3c9-4918-a8c2-ce86ba1bb394.png)
-
 Features:
 
 - ✅ Minimal styling (make it your own!)
@@ -48,12 +37,12 @@ All commands are run from the root of the project, from a terminal:
 
 | Command                | Action                                           |
 | :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
+| `pnpm install`          | Installs dependencies                            |
+| `pnpm run dev`          | Starts local dev server at `localhost:3000`      |
+| `pnpm run build`        | Build your production site to `./dist/`          |
+| `pnpm run preview`      | Preview your build locally, before deploying     |
+| `pnpm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
+| `pnpm run astro --help` | Get help using the Astro CLI                     |
 
 ## 👀 Want to learn more?
 
@@ -62,3 +51,36 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 ## Credit
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+
+## TODO
+- Styling
+  - [x] Light / Dark Mode
+  - [ ] Markdown
+  - [ ] Accordion
+- [ ] [TOC](https://docs.astro.build/en/guides/markdown-content/#markdown-plugins)
+- [ ] i18n
+	- [ ] 中、英、日（當練習英、日寫作）
+	- [ ] 沒翻譯的讓 Language Selector 直接不顯示該語言選項（學 MDN）
+  - 看看 https://hackmd.io/@Heidi-Liu/docusaurus-react-blog
+- [ ] Last Updated
+- [ ] Tags
+- [ ] RSS(?)
+- [ ] Email Subscription
+- [ ] Latest
+- [ ] Pinned
+- [ ] Search
+- [ ] Image/Video Optimization
+	- [How to Lazy Load Images in React](https://www.freecodecamp.org/news/how-to-lazy-load-images-in-react/)
+- [ ] Code Content
+- [ ] Emoji Reaction ( Thumb, Love, Clap )
+- [ ] Comment Area ( Vote(?) )
+	- Disqus
+	- [GitHub Apps - utterances · GitHub](https://github.com/apps/utterances)
+	- 學巴哈自架
+- [ ] Open Graph & Twitter
+- [ ] Sponsor
+	- Buy me a coffee
+	- QRCode
+- [ ] GA ( for PV )
+	- 至少給自己看（？
+	- 不知道能不自幹出類似 Medium 那種 Stat
