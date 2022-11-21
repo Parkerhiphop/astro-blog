@@ -27,7 +27,7 @@ body {
 	font-family: Verdana, sans-serif;
 	margin: auto;
 	padding: 20px;
-	max-width: 65ch;
+	max-width: 80ch;
 	text-align: left;
 	background-color: var(--primary-color);
 	color: var(--secondary-color);
@@ -43,8 +43,8 @@ h4,
 h5,
 h6 {
 	color: var(--title-color);
-	letter-spacing: 1px;
-	margin: 2rem 0;
+	letter-spacing: 0.5px;
+	margin: 4rem 0 1rem 0;
 }
 
 
@@ -52,7 +52,6 @@ strong,
 b,
 p {
 	color: var(--text-color);
-	margin: 1.5rem 0;
 }
 
 a {
@@ -119,6 +118,7 @@ ol {
 
 ol > li {
 	counter-increment: item;
+	padding: 0 0 0 20px;
 }
 
 ol > li:before {
