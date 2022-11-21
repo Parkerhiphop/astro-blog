@@ -4,7 +4,7 @@ import { SITE_TITLE } from '../config';
 ---
 <script>
 const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-const storage = localStorage.getItem("theme");
+const storage = sessionStorage.getItem("theme");
 const theme = storage ? storage : system;
 const element = document.body;
 const themeButton = document.getElementById('theme')!;
@@ -19,9 +19,9 @@ function themeToggle() {
   element.classList.toggle("dark-theme");
 
   if (theme && theme === "dark") {
-    localStorage.setItem("theme", "light");
+    sessionStorage.setItem("theme", "light");
   } else {
-    localStorage.setItem("theme", "dark");
+    sessionStorage.setItem("theme", "dark");
   }
 }
 </script>
@@ -33,6 +33,7 @@ function themeToggle() {
 		<HeaderLink href="/">Home</HeaderLink>
 		<HeaderLink href="/about">About</HeaderLink>
 		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/tech">Tech</HeaderLink>
 		<HeaderLink href="/weekly">Weekly</HeaderLink>
 		<HeaderLink href="/changelog">ChangeLog</HeaderLink>
 		<HeaderLink href="https://twitter.com/ParkerChang11" target="_blank">Twitter</HeaderLink>
@@ -46,5 +47,6 @@ function themeToggle() {
 	}
 	h2 {
 		margin: 0.5em 0;
+		color: var(--text-color);
 	}
 </style>
