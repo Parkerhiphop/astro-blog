@@ -126,27 +126,31 @@ while(true) {
 
 #### Macrotask Queue / Task Queue  / Event Queue
 
-- 如果看到人只講 Task ，通常就是指 Macrotask
-- 一次 Event Loop 只會從 task queue 中取出一個 task 來執行
+- 如果看到人只講 Task ，通常就是指 Macrotask，以下也會簡化成 task
+- 詳細 macrotask 在 render 前執行的順序範例可參考 [Event Loop 運行機制解析 - 瀏覽器篇](https://yu-jack.github.io/2020/02/03/javascript-runtime-event-loop-browser/)
+- 但大意來說，DOM Manipulation 只會吃到最後一個值來 render，像是重複改變 `document.body.style`的值，只會顯示最後一個。
+- 而 setTimeout 裡的 callback 如果等的時間大於瀏覽器更新的頻率時，則會在下次 render 才執行。
+  - 如果瀏覽器是以 60 fps 進行的話, 代表說這個 setTimeout 時間只要大於間隔 16.7 ms，就會在下次 render 才執行
 
 Examples
 1. initial script
    - 頁面載入要執行 JS 的 script tag 這件事情，瀏覽器將之視為一個 Macro task
 2. `setTimeout`
-4. `setInterval`
-5. The event callback of user interaction
+3. `setInterval`
+4. The event callback of user interaction
    - ex: click event 裡的 callback
-6. The DOM manipulation
+5. The DOM manipulation
    - ex: `document.body.style = 'background:yellow'`
-7. The networking
+6. The networking
    - ex: ajax 觸發時的 callback
-8. The history traversal
+7. The history traversal
    - ex: `history.back()` 
 
 #### Mircotask Queue / Job Queue
 
 - 每一輪 Event Loop 中會確保當前的 Microtask 全數執行完畢
-- Microtask queue 清空後，頁面就會進行 re-render
+- 與 task 不同，microtask 一定都會在這次 render 內執行，不會出現像 setTimeout 那樣在下次 render 才執行的情況
+- 當 Microtask queue 清空後，頁面才會進行 re-render
 
 Examples
 1. `Promise`
@@ -155,9 +159,9 @@ Examples
 3. `queueMicrotask`
 4. Any techniques based on promise API such as fetch API
 
-大概介紹完兩個角色之後，用一個簡單的範例來帶大家看看流程，因為 [JS 原力覺醒 Day15 - Macrotask 與 MicroTask](https://ithelp.ithome.com.tw/articles/10222737) 留言中[Nono](https://ithelp.ithome.com.tw/users/20111995/profile) 的解釋很清楚，以下直接節錄過來：
+#### 在一次 Event Loop 中，Queue 的運作流程
 
-#### 在一次 Event Loop 中，Queue 的運作流程如下
+因為 [JS 原力覺醒 Day15 - Macrotask 與 MicroTask](https://ithelp.ithome.com.tw/articles/10222737) 留言中[Nono](https://ithelp.ithome.com.tw/users/20111995/profile) 的解釋很清楚，以下直接節錄過來：
 
 1. 先從 task queue 中，找出一個最優先被加入的 macrotask (oldest task)，並放進 event loop。
    - 若 task queue 中沒有 macrotask 存在，則直接跳過 2. 到步驟 3.
@@ -167,6 +171,7 @@ Examples
 5. microtask 執行完才開始做頁面的渲染 (不一定每次都做)
 6. 重複 1-5
 
+Example
 ```js
 setTimeout(() => alert("timeout"));
 
@@ -208,8 +213,6 @@ alert("global ex. context");
 - 更多 API 請參考 [MDN - Web APIs](https://developer.mozilla.org/zh-TW/docs/Web/API)
 
 ## 實戰演練
-
-<!-- TODO: 放一些程式碼實際執行的案例 -->
 
 理解了 Event Loop 之後，我們就能知道 非同步事件 是不會馬上執行的，而只是被丟到 Queue 等著被呼叫，而如果 Call Stack 還有 function 在執行時，會被 pending。
 
@@ -361,10 +364,11 @@ Demo Code from [Event loop, micro-task, macro-task, async JavaScript 筆記](htt
 ## Reference
 
 1. [所以說event loop到底是什麼玩意兒？| Philip Roberts | JSConf EU](https://www.youtube.com/watch?v=8aGhZQkoFbQ&list=WL&index=44&t=32s)
-2. [Why is this microtask executed before macrotask in event loop?](https://stackoverflow.com/questions/52019729/why-is-this-microtask-executed-before-macrotask-in-event-loop)
-3. [JS 原力覺醒 Day15 - Macrotask 與 MicroTask](https://ithelp.ithome.com.tw/articles/10222737)
-4. [Day5 [JavaScript 基礎] Event Loop 機制](https://ithelp.ithome.com.tw/articles/10214017)
-5. [JavaScript 中的同步與非同步（上）：先成為 callback 大師吧！](https://blog.huli.tw/2019/10/04/javascript-async-sync-and-callback/)
-7. [✨♻️ JavaScript Visualized: Event Loop](https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif)
+2. [JS 原力覺醒 Day15 - Macrotask 與 MicroTask](https://ithelp.ithome.com.tw/articles/10222737)
+3. [Day5 [JavaScript 基礎] Event Loop 機制](https://ithelp.ithome.com.tw/articles/10214017)
+4. [JavaScript 中的同步與非同步（上）：先成為 callback 大師吧！](https://blog.huli.tw/2019/10/04/javascript-async-sync-and-callback/)
+5. [Event Loop 運行機制解析 - 瀏覽器篇](https://yu-jack.github.io/2020/02/03/javascript-runtime-event-loop-browser/)
+6. [✨♻️ JavaScript Visualized: Event Loop](https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif)
+7. [Why is this microtask executed before macrotask in event loop?](https://stackoverflow.com/questions/52019729/why-is-this-microtask-executed-before-macrotask-in-event-loop)
 8. [https://html.spec.whatwg.org/#microtask-queue](https://html.spec.whatwg.org/#microtask-queue)
 
